@@ -21,7 +21,7 @@ Adafruit_PN532 nfc3(PN532_SCK, PN532_MISO, PN532_MOSI, PN532_3_CS);
 void checkPN532Firmware(Adafruit_PN532 &nfc, String name);
 void readNFC(Adafruit_PN532 &nfc, String name);
 
-    void setup()
+void setup()
 {
   Serial.begin(115200);
   Serial.println("Initializing PN532 modules over SPI...");
@@ -54,6 +54,22 @@ void readNFC(Adafruit_PN532 &nfc, String name);
   delay(100);
 
   // Get firmware versions
+  checkPN532Firmware(nfc1, "PN532 #1");
+  checkPN532Firmware(nfc2, "PN532 #2");
+  checkPN532Firmware(nfc3, "PN532 #3");
+
+  delay(100);
+  while (!nfc1.setPassiveActivationRetries(0x9A))
+  {
+    Serial.println("Retrying setPassiveActivationRetries...");
+    delay(100); // Small delay to prevent flooding
+  }
+  Serial.println("Successfully set Passive Activation Retries!");
+  delay(100);
+  nfc2.setPassiveActivationRetries(0x9A);
+  delay(100);
+  nfc3.setPassiveActivationRetries(0x9A);
+
   checkPN532Firmware(nfc1, "PN532 #1");
   checkPN532Firmware(nfc2, "PN532 #2");
   checkPN532Firmware(nfc3, "PN532 #3");
