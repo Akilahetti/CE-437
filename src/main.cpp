@@ -3,8 +3,8 @@
 
 // Define Chip Select (CS) pins for each PN532 module
 #define PN532_1_CS 5
-#define PN532_2_CS 16
-#define PN532_3_CS 17
+#define PN532_2_CS 17
+#define PN532_3_CS 16
 
 #define PN532_SCK (18)
 #define PN532_MOSI (23)
